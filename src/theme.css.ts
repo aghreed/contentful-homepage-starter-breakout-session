@@ -1,5 +1,5 @@
-import { createGlobalTheme } from "@vanilla-extract/css"
-import { colors } from "./colors.css.ts"
+import { createGlobalTheme } from "@vanilla-extract/css";
+import { colors } from "./colors.css.ts";
 
 const space = {
   0: "0",
@@ -9,7 +9,7 @@ const space = {
   4: "32px",
   5: "64px",
   6: "128px",
-}
+};
 
 // add negative margins
 Object.assign(
@@ -21,7 +21,7 @@ Object.assign(
     }),
     {}
   )
-)
+);
 
 const fontSizes = {
   0: "12px",
@@ -32,7 +32,7 @@ const fontSizes = {
   5: "32px",
   6: "48px",
   7: "64px",
-}
+};
 
 const fontWeights = {
   normal: "400",
@@ -40,26 +40,26 @@ const fontWeights = {
   semibold: "600",
   bold: "700",
   extrabold: "800",
-}
+};
 
 const fonts = {
   text: '"DM Sans", sans-serif',
-  heading: '"DM Sans", sans-serif',
+  heading: '"Anton", sans-serif',
   mono: "DM Mono, Menlo, monospace",
-}
+};
 
 const lineHeights = {
   text: "1.65",
   heading: "1.25",
   tight: "1.1",
   solid: "1",
-}
+};
 
 const letterSpacings = {
   normal: "0",
   tight: "-0.02em",
   wide: "0.08em",
-}
+};
 
 const sizes = {
   container: "1280px",
@@ -71,18 +71,18 @@ const sizes = {
   navGroupBoxMax: "400px",
   navIcon: "32px",
   navIconSmall: "30px",
-}
+};
 
 const radii = {
   button: "10px",
   large: "24px",
   circle: "99999px",
-}
+};
 
 const shadows = {
   large:
     "0px 4px 8px 0px #2E29330A, 0px 4px 24px 0px #2E293314, 0px 8px 24px 0px #473F4F29",
-}
+};
 
 export const theme = createGlobalTheme(":root", {
   colors,
@@ -95,4 +95,4 @@ export const theme = createGlobalTheme(":root", {
   sizes,
   radii,
   shadows,
-})
+});
