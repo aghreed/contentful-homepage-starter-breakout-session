@@ -1,4 +1,4 @@
-const { documentToHtmlString } = require("@contentful/rich-text-html-renderer")
+const { documentToHtmlString } = require("@contentful/rich-text-html-renderer");
 
 exports.createSchemaCustomization = async ({ actions }) => {
   actions.createFieldExtension({
@@ -6,27 +6,27 @@ exports.createSchemaCustomization = async ({ actions }) => {
     extend(options) {
       return {
         resolve(source) {
-          return source.internal.type.replace("Contentful", "")
+          return source.internal.type.replace("Contentful", "");
         },
-      }
+      };
     },
-  })
+  });
 
   actions.createFieldExtension({
     name: "imageUrl",
     extend(options) {
-      const schemaRE = /^\/\//
+      const schemaRE = /^\/\//;
       const addURLSchema = (str) => {
-        if (schemaRE.test(str)) return `https:${str}`
-        return str
-      }
+        if (schemaRE.test(str)) return `https:${str}`;
+        return str;
+      };
       return {
         resolve(source) {
-          return addURLSchema(source.file.url)
+          return addURLSchema(source.file.url);
         },
-      }
+      };
     },
-  })
+  });
 
   actions.createFieldExtension({
     name: "navItemType",
@@ -41,28 +41,28 @@ exports.createSchemaCustomization = async ({ actions }) => {
         resolve() {
           switch (options.name) {
             case "Group":
-              return "Group"
+              return "Group";
             default:
-              return "Link"
+              return "Link";
           }
         },
-      }
+      };
     },
-  })
+  });
 
   actions.createFieldExtension({
     name: "richText",
     extend(options) {
       return {
         resolve(source, args, context, info) {
-          const body = source.body
-          const doc = JSON.parse(body.raw)
-          const html = documentToHtmlString(doc)
-          return html
+          const body = source.body;
+          const doc = JSON.parse(body.raw);
+          const html = documentToHtmlString(doc);
+          return html;
         },
-      }
+      };
     },
-  })
+  });
 
   // abstract interfaces
   actions.createTypes(/* GraphQL */ `
@@ -224,6 +224,13 @@ exports.createSchemaCustomization = async ({ actions }) => {
       content: [HomepageProduct]
     }
 
+    interface HomepageBanner implements Node & HomepageBlock {
+      id: ID!
+      blocktype: String
+      heading: String
+      text: String
+    }
+
     interface Homepage implements Node {
       id: ID!
       title: String
@@ -329,7 +336,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       image: HomepageImage
       html: String!
     }
-  `)
+  `);
 
   // CMS-specific types for Homepage
   actions.createTypes(/* GraphQL */ `
@@ -491,6 +498,14 @@ exports.createSchemaCustomization = async ({ actions }) => {
       content: [HomepageProduct] @link(from: "content___NODE")
     }
 
+    type ContentfulHomepageBanner implements Node & HomepageBanner & HomepageBlock
+      @dontInfer {
+      id: ID!
+      blocktype: String @blocktype
+      heading: String
+      text: String
+    }
+
     type ContentfulHomepage implements Node & Homepage @dontInfer {
       id: ID!
       title: String
@@ -498,7 +513,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       image: HomepageImage @link(from: "image___NODE")
       content: [HomepageBlock] @link(from: "content___NODE")
     }
-  `)
+  `);
 
   // CMS specific types for About page
   actions.createTypes(/* GraphQL */ `
@@ -557,7 +572,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       image: HomepageImage @link(from: "image___NODE")
       content: [HomepageBlock] @link(from: "content___NODE")
     }
-  `)
+  `);
 
   // Layout types
   actions.createTypes(/* GraphQL */ `
@@ -586,7 +601,7 @@ exports.createSchemaCustomization = async ({ actions }) => {
       header: LayoutHeader @link(from: "header___NODE")
       footer: LayoutFooter @link(from: "footer___NODE")
     }
-  `)
+  `);
 
   // Page types
   actions.createTypes(/* GraphQL */ `
@@ -598,5 +613,5 @@ exports.createSchemaCustomization = async ({ actions }) => {
       image: HomepageImage @link(from: "image___NODE")
       html: String! @richText
     }
-  `)
-}
+  `);
+};
